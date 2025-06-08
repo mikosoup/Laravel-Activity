@@ -61,6 +61,24 @@
                                     <td style="text-align: center;">{{ $student->id }}</td>
                                     <td style="text-align: center;">{{ $student->name }}</td>
                                     <td style="text-align: center;">{{ $student->age }}</td>
+                                    <td>
+                        <!-- Edit Button -->
+                        <button type="button" class="btn btn-sm btn-warning" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#editStudentModal{{ $student->id }}">
+                            Edit
+                        </button>
+                        
+                        <!-- Delete Button -->
+                        <form action="{{ route('students.destroy', $student->id) }}" 
+                              method="POST" 
+                              style="display: inline-block;"
+                              onsubmit="return confirm('Are you sure you want to delete this student?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -70,6 +88,45 @@
             </div>
         </div>
     </div>
+    
+    <!-- Edit Modal for each student -->
+                <div class="modal fade" id="editStudentModal{{ $student->id }}" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form action="{{ route('students.update', $student->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Edit Student</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="editStdName{{ $student->id }}" class="form-label">Name</label>
+                                        <input type="text" class="form-control" 
+                                               id="editStdName{{ $student->id }}" 
+                                               name="stdName" 
+                                               value="{{ $student->name }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="editStdAge{{ $student->id }}" class="form-label">Age</label>
+                                        <input type="number" class="form-control" 
+                                               id="editStdAge{{ $student->id }}" 
+                                               name="stdAge" 
+                                               value="{{ $student->age }}" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Update Student</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </tbody>
+        </table>
+
 
     <!-- Modal -->
     <div class="modal fade" id="studentListsModal" tabindex="-1" aria-labelledby="studentListsModalLabel" aria-hidden="true">

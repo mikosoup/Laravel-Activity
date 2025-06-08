@@ -6,6 +6,7 @@ use App\Http\Controllers\StudentsController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::resource('students', StudentsController::class);
 
 Route::get('/students-list', [StudentsController::class, 'index']);
 Route::get('/students/create', [StudentsController::class, 'create'])->name('students.create');
