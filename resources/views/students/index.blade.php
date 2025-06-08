@@ -33,6 +33,8 @@
     </div>
     @endif
 
+       <a href="{{ route('auth.logout') }}" class="btn btn-danger" style="float: right;">Logout</a>
+
     <!-- Display Student Lists Table -->
     <div class="container">
         <div class="row">
