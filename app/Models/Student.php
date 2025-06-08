@@ -9,6 +9,7 @@ class Student extends Model
 {
      use Notifiable;
 
+    protected $table = 'students';
     protected $fillable = [
         'name',
         'age',
